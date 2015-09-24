@@ -25,8 +25,11 @@ namespace Ini {
 
 	Parser::~Parser(void)
 	{
-		delete current_section;
-		current_section = NULL;
+	    if (current_section)
+        {
+            delete current_section;
+            current_section = NULL;
+        }
 	};
 
 	void Parser::scan()
@@ -71,7 +74,7 @@ namespace Ini {
 		while (scan_char() && current_char != NEWLINE)
             line += current_char;
 
-		current_section->lines.push_back(
+		getSection()->lines.push_back(
 			parse_assignment(line));
 	};
 
@@ -105,15 +108,18 @@ namespace Ini {
 		// so new is actually safe here
 
 		Section *section = new Section(line);
+
+		//current_section might be a section, but if not, our ctor guarantees it to be NULL.
 		section->previous = current_section;
 
+        //Use current_section rather than the getter since we don't want it to instantiate.
 		if (current_section)
 		{
-			section->previous = current_section;
-			current_section->next = section;
+			section->previous = getSection();
+			getSection()->next = section;
 		}
 
-		current_section = section;
+		setSection(section);
 	};
 
 	/// <summary>
