@@ -1,1 +1,9 @@
-IniParser*.objs*.a*.lib*.dll
+*.cbp
+*.depend
+*.makefile
+*.layout
+*.a
+*.lib
+*.dll
+
+.objs
