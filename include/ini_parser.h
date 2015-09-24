@@ -38,19 +38,24 @@ namespace Ini {
 		char current_char;
 		std::istream *src;
 
+        Ini::Section *current_section;
+
 	protected:
 		bool scan_char();
 		void scan_line();
 		void scan_section();
+		void skip_until_after(const char end);
+
+		std::pair<std::string, std::string> parse_assignment(std::string line) const;
 
 	public:
+	    Ini::Section *getSection() { return current_section; };
+	    void setSection(Ini::Section* section) { current_section = section; }
+
 		Parser(std::istream *input_stream);
 		~Parser(void);
 		void scan();
-		std::pair<std::string, std::string> parse_assignment(std::string line) const;
-		void skip_until_after(const char end);
 
-		Ini::Section *current_section;
 	};
 }
 
