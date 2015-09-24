@@ -56,4 +56,4 @@ If you `delete` a *section*, you delete the whole section chain as well. Set the
 ## Todo
 * Better in-source documentation
 
-~* Break out `current_section` into getters and setters and instantiate it lazily.~
+~~* Break out `current_section` into getters and setters and instantiate it lazily.~~
