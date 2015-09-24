@@ -49,8 +49,14 @@ namespace Ini {
 		std::pair<std::string, std::string> parse_assignment(std::string line) const;
 
 	public:
-	    Ini::Section *getSection() { return current_section; };
 	    void setSection(Ini::Section* section) { current_section = section; }
+	    Ini::Section *getSection()
+	    {
+	        if (!current_section)
+                current_section = new Ini::Section ();
+
+	        return current_section;
+        };
 
 		Parser(std::istream *input_stream);
 		~Parser(void);
